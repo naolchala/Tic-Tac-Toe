@@ -29860,9 +29860,82 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-var game_data = [[1, 2, 0], [0, 1, 0], [2, 2, 1]];
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-var Game = function Game() {};
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var game_data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+
+var Game = function Game() {
+  var _useState = (0, _react.useState)(game_data),
+      _useState2 = _slicedToArray(_useState, 2),
+      data = _useState2[0],
+      setData = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(1),
+      _useState4 = _slicedToArray(_useState3, 2),
+      playerTurn = _useState4[0],
+      setPlayerTurn = _useState4[1];
+
+  var setCellValue = function setCellValue(row, col) {
+    var newData = data;
+    newData[row][col] = newData[row][col] == 0 ? playerTurn : newData[row][col];
+    setPlayerTurn(function (playerTurn) {
+      return playerTurn == 1 ? 2 : 1;
+    });
+    setData(newData);
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("table", {
+    className: "game_table"
+  }, /*#__PURE__*/_react.default.createElement("tbody", null, data.map(function (row, index) {
+    return /*#__PURE__*/_react.default.createElement(Row, {
+      key: index,
+      rowData: row,
+      rowIndex: index,
+      changeFunc: setCellValue
+    });
+  }))));
+};
+
+var Row = function Row(props) {
+  var rowData = props.rowData;
+  var changeFunc = props.changeFunc;
+  var rowIndex = props.rowIndex;
+  return /*#__PURE__*/_react.default.createElement("tr", null, rowData.map(function (col, index) {
+    return /*#__PURE__*/_react.default.createElement(Cell, {
+      colData: col,
+      key: 3 * rowIndex + index,
+      rowIndex: rowIndex,
+      colIndex: index,
+      changeFunc: changeFunc
+    });
+  }));
+};
+
+var Cell = function Cell(props) {
+  var colVal = props.colData;
+  var rowIndex = props.rowIndex;
+  var colIndex = props.colIndex;
+  var setValue = props.changeFunc;
+  var display = colVal == 0 ? /*#__PURE__*/_react.default.createElement("p", null) : colVal == 1 ? 'X' : 'O';
+
+  var changeValue = function changeValue() {
+    setValue(rowIndex, colIndex);
+  };
+
+  return /*#__PURE__*/_react.default.createElement("td", {
+    onClick: changeValue
+  }, display);
+};
 
 var _default = Game;
 exports.default = _default;
