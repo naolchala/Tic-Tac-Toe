@@ -4,21 +4,54 @@ import './Game.scss';
 
 const game_data = [[0,0,0],
                    [0,0,0],
-                   [0,0,0]]
+                   [0,0,0]];
+function checkDown(data, col){
+  return data[0][col] === data[1][col] && data[0][col] == data[2][col] && data[0][col] !== 0;
+}
+function checkAcross(data, row){
+  return data[row][0] === data[row][1] && data[row][0] == data[row][2] && data[row][0] !== 0;
+}
+function checkDiagonal(data){
+  return data[0][0] === data[1][1] && data[0][0] === data[2][2] && data[0][0] !== 0;
+}
+function checkDiagonal2(data){
+  return data[0][2] === data[1][1] && data[0][2] === data[2][0] && data[0][2] !== 0;
+}
+
+function checkWin(data, row, col){
+    if(checkDown(data, col) || checkAcross(data, row) || checkDiagonal(data) || checkDiagonal2(data)){
+      return true
+    }else{
+      return false
+    }
+}
+
+
 
 const Game = () => {
     const [data, setData] = useState(game_data);
     const [playerTurn, setPlayerTurn] = useState(1);
-    
+    const [gameEnded, setEnd] = useState(false);
+
     const setCellValue = (row, col) => {
-        let newData = data;
-        newData[row][col] = newData[row][col] == 0 ? playerTurn : newData[row][col];
-        setPlayerTurn(playerTurn => playerTurn == 1 ? 2 : 1);
-        setData(newData);
+        
+        if ( data[row][col] == 0 && !gameEnded){
+            let newData = data;
+            newData[row][col] =  playerTurn;
+            setData(newData);
+            let wins = checkWin(data, row, col);
+            if(wins){
+                setEnd(true);
+            }else {
+                setPlayerTurn(playerTurn => playerTurn == 1 ? 2 : 1);
+            }
+            
+        }
     }
 
     return (
         <div>
+            {gameEnded ? <h1>{playerTurn} wins</h1> : null}
             <table className="game_table">
                 <tbody>
                     {

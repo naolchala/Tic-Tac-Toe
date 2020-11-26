@@ -29874,6 +29874,30 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var game_data = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
+function checkDown(data, col) {
+  return data[0][col] === data[1][col] && data[0][col] == data[2][col] && data[0][col] !== 0;
+}
+
+function checkAcross(data, row) {
+  return data[row][0] === data[row][1] && data[row][0] == data[row][2] && data[row][0] !== 0;
+}
+
+function checkDiagonal(data) {
+  return data[0][0] === data[1][1] && data[0][0] === data[2][2] && data[0][0] !== 0;
+}
+
+function checkDiagonal2(data) {
+  return data[0][2] === data[1][1] && data[0][2] === data[2][0] && data[0][2] !== 0;
+}
+
+function checkWin(data, row, col) {
+  if (checkDown(data, col) || checkAcross(data, row) || checkDiagonal(data) || checkDiagonal2(data)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 var Game = function Game() {
   var _useState = (0, _react.useState)(game_data),
       _useState2 = _slicedToArray(_useState, 2),
@@ -29885,16 +29909,29 @@ var Game = function Game() {
       playerTurn = _useState4[0],
       setPlayerTurn = _useState4[1];
 
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      gameEnded = _useState6[0],
+      setEnd = _useState6[1];
+
   var setCellValue = function setCellValue(row, col) {
-    var newData = data;
-    newData[row][col] = newData[row][col] == 0 ? playerTurn : newData[row][col];
-    setPlayerTurn(function (playerTurn) {
-      return playerTurn == 1 ? 2 : 1;
-    });
-    setData(newData);
+    if (data[row][col] == 0 && !gameEnded) {
+      var newData = data;
+      newData[row][col] = playerTurn;
+      setData(newData);
+      var wins = checkWin(data, row, col);
+
+      if (wins) {
+        setEnd(true);
+      } else {
+        setPlayerTurn(function (playerTurn) {
+          return playerTurn == 1 ? 2 : 1;
+        });
+      }
+    }
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("table", {
+  return /*#__PURE__*/_react.default.createElement("div", null, gameEnded ? /*#__PURE__*/_react.default.createElement("h1", null, playerTurn, " wins") : null, /*#__PURE__*/_react.default.createElement("table", {
     className: "game_table"
   }, /*#__PURE__*/_react.default.createElement("tbody", null, data.map(function (row, index) {
     return /*#__PURE__*/_react.default.createElement(Row, {
@@ -29987,7 +30024,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62979" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55219" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
