@@ -1,0 +1,24 @@
+.game_table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+}
+.game_table tr td {
+  border: 7px solid #607D8B;
+  width: 150px;
+  height: 150px;
+  font-size: 60px;
+  text-align: center;
+  font-weight: bold;
+  color: #FF5722;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+.game_table tr td:hover {
+  background-color: #b0c3cc;
+}
+.game_table tr td:active {
+  background-color: #FF5722;
+}
+
+/*# sourceMappingURL=/src.b0ce6175.css.map */
