@@ -1,21 +1,40 @@
+// @import "~animate.css/animate.min.css";
+
 .game_table {
     // width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
     
     tr {
-        
+        &:first-child {
+            td {
+                border-top: transparent;
+            }
+        }
+        &:last-child {
+            td {
+                border-bottom: transparent;
+            }
+        }
         td {
             border: 7px solid #607D8B;
-            width: 150px;
-            height: 150px;
-            font-size: 60px;
+            width: 100px;
+            height: 100px;
+            // font-size: 60px;
             text-align: center;
             font-weight: bold;
 
             color: #FF5722;
             transition: all .5s;
             cursor: pointer;
+
+            &:first-child {
+                border-left: transparent;
+            }
+
+            &:last-child {
+                border-right: transparent;
+            }
 
             &:hover {
                 background-color: #b0c3cc;
@@ -26,9 +45,14 @@
         }
     }
 }
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 .turn-shower {
-    margin-top: 20px;
+    margin-top: 50px;
 
     display: flex;
     flex-direction: row;
@@ -66,11 +90,57 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
+    animation: fade .5s;
+    
     .modal {
         background-color: white;
         padding: 30px;
         text-align: center;
         border-radius: 5px;
+
+        animation: backInDown .6s;
     }
+}
+.o {
+    height: 80%;
+    transform-origin: 0px 0px !important;
+    width: 80%;
+
+    circle {
+        fill: transparent;
+        stroke: #FF5722;
+        stroke-width: 10px;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+        animation-name: rounds;
+        animation-duration: 2s;
+    }
+}
+
+@keyframes rounds {
+    from {
+        stroke-dashoffset: 1000;
+        // fill: #FF5722;
+    }
+    to {
+        stroke-dashoffset: 0;
+        fill: transparent;
+    }
+}
+
+
+
+.x {
+    height: 80%;
+    transform-origin: 0px 0px !important;
+    width: 80%;
+
+    line {
+        stroke: #FF5722;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+        stroke-width: 10px;
+        animation: rounds 2s;
+    }
+    
 }

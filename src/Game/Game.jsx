@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import "animate.css"
 import './Game.scss';
 
 
@@ -50,7 +51,7 @@ const Game = () => {
     }
 
     return (
-        <div>
+        <div class="game">
            {
                gameEnded ?
                     <Modal>
@@ -95,7 +96,7 @@ const Cell = (props) => {
     const rowIndex = props.rowIndex;
     const colIndex = props.colIndex;
     const setValue = props.changeFunc;
-    const display = colVal == 0 ? <p></p> : colVal == 1 ? 'X' : 'O';
+    const display = colVal == 0 ? <p></p> : colVal == 1 ? <X/> : <O/>;
 
     const changeValue = () =>{
         setValue(rowIndex, colIndex)
@@ -112,6 +113,23 @@ const Modal = (props) => {
                 {props.children}
             </div>
         </div>
+    )
+}
+
+const X = () => {
+    return(
+        <svg className="x" viewBox="0 0 100 100">
+            <line x1="10" y1="10" x2="90" y2="90" className="line line1"></line>
+            <line x1="90" y1="10" x2="10" y2="90" className="line line1"></line>
+        </svg>
+    )   
+}
+
+const O = () => {
+    return (
+        <svg className="o" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40%"></circle>
+        </svg>
     )
 }
 export default Game;

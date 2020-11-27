@@ -29839,7 +29839,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../src/Game/Game.scss":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/animate.css/animate.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/Game/Game.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -29853,6 +29858,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+require("animate.css");
 
 require("./Game.scss");
 
@@ -29931,7 +29938,9 @@ var Game = function Game() {
     }
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, gameEnded ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\uD83C\uDF86\uD83C\uDF87\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\u2728\uD83C\uDF89"), /*#__PURE__*/_react.default.createElement("h2", null, "Player ", playerTurn), /*#__PURE__*/_react.default.createElement("h4", null, "Wins This Round ")) : null, /*#__PURE__*/_react.default.createElement("table", {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    class: "game"
+  }, gameEnded ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\uD83C\uDF86\uD83C\uDF87\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\u2728\uD83C\uDF89"), /*#__PURE__*/_react.default.createElement("h2", null, "Player ", playerTurn), /*#__PURE__*/_react.default.createElement("h4", null, "Wins This Round ")) : null, /*#__PURE__*/_react.default.createElement("table", {
     className: "game_table"
   }, /*#__PURE__*/_react.default.createElement("tbody", null, data.map(function (row, index) {
     return /*#__PURE__*/_react.default.createElement(Row, {
@@ -29969,7 +29978,7 @@ var Cell = function Cell(props) {
   var rowIndex = props.rowIndex;
   var colIndex = props.colIndex;
   var setValue = props.changeFunc;
-  var display = colVal == 0 ? /*#__PURE__*/_react.default.createElement("p", null) : colVal == 1 ? 'X' : 'O';
+  var display = colVal == 0 ? /*#__PURE__*/_react.default.createElement("p", null) : colVal == 1 ? /*#__PURE__*/_react.default.createElement(X, null) : /*#__PURE__*/_react.default.createElement(O, null);
 
   var changeValue = function changeValue() {
     setValue(rowIndex, colIndex);
@@ -29988,9 +29997,39 @@ var Modal = function Modal(props) {
   }, props.children));
 };
 
+var X = function X() {
+  return /*#__PURE__*/_react.default.createElement("svg", {
+    className: "x",
+    viewBox: "0 0 100 100"
+  }, /*#__PURE__*/_react.default.createElement("line", {
+    x1: "10",
+    y1: "10",
+    x2: "90",
+    y2: "90",
+    className: "line line1"
+  }), /*#__PURE__*/_react.default.createElement("line", {
+    x1: "90",
+    y1: "10",
+    x2: "10",
+    y2: "90",
+    className: "line line1"
+  }));
+};
+
+var O = function O() {
+  return /*#__PURE__*/_react.default.createElement("svg", {
+    className: "o",
+    viewBox: "0 0 100 100"
+  }, /*#__PURE__*/_react.default.createElement("circle", {
+    cx: "50",
+    cy: "50",
+    r: "40%"
+  }));
+};
+
 var _default = Game;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Game.scss":"../src/Game/Game.scss"}],"../src/index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","animate.css":"../node_modules/animate.css/animate.css","./Game.scss":"../src/Game/Game.scss"}],"../src/index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
