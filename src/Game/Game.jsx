@@ -51,7 +51,15 @@ const Game = () => {
 
     return (
         <div>
-            {gameEnded ? <h1>{playerTurn} wins</h1> : null}
+           {
+               gameEnded ?
+                    <Modal>
+                        <h1>🎆🎇🏆🏆🏆🏆✨🎉</h1>
+                        <h2>Player {playerTurn}</h2>
+                        <h4>Wins This Round </h4>
+                    </Modal>
+               : null
+           }
             <table className="game_table">
                 <tbody>
                     {
@@ -61,6 +69,10 @@ const Game = () => {
                     }
                 </tbody>
             </table>
+            <div className="turn-shower">
+                    <span className={playerTurn == 1 ? "active" : ""}>Player 1</span>
+                    <span className={playerTurn == 2 ? "active" : ""}>Player 2</span>
+            </div>
         </div>
     )
 }
@@ -93,4 +105,13 @@ const Cell = (props) => {
     )
 }
 
+const Modal = (props) => {
+    return (
+        <div className="modal-container">
+            <div className="modal">
+                {props.children}
+            </div>
+        </div>
+    )
+}
 export default Game;

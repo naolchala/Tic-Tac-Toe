@@ -29931,7 +29931,7 @@ var Game = function Game() {
     }
   };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, gameEnded ? /*#__PURE__*/_react.default.createElement("h1", null, playerTurn, " wins") : null, /*#__PURE__*/_react.default.createElement("table", {
+  return /*#__PURE__*/_react.default.createElement("div", null, gameEnded ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\uD83C\uDF86\uD83C\uDF87\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\u2728\uD83C\uDF89"), /*#__PURE__*/_react.default.createElement("h2", null, "Player ", playerTurn), /*#__PURE__*/_react.default.createElement("h4", null, "Wins This Round ")) : null, /*#__PURE__*/_react.default.createElement("table", {
     className: "game_table"
   }, /*#__PURE__*/_react.default.createElement("tbody", null, data.map(function (row, index) {
     return /*#__PURE__*/_react.default.createElement(Row, {
@@ -29940,7 +29940,13 @@ var Game = function Game() {
       rowIndex: index,
       changeFunc: setCellValue
     });
-  }))));
+  }))), /*#__PURE__*/_react.default.createElement("div", {
+    className: "turn-shower"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: playerTurn == 1 ? "active" : ""
+  }, "Player 1"), /*#__PURE__*/_react.default.createElement("span", {
+    className: playerTurn == 2 ? "active" : ""
+  }, "Player 2")));
 };
 
 var Row = function Row(props) {
@@ -29974,9 +29980,22 @@ var Cell = function Cell(props) {
   }, display);
 };
 
+var Modal = function Modal(props) {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal-container"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "modal"
+  }, props.children));
+};
+
 var _default = Game;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./Game.scss":"../src/Game/Game.scss"}],"../src/index.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./Game.scss":"../src/Game/Game.scss"}],"../src/index.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../src/index.jsx":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29985,18 +30004,22 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 var _Game = _interopRequireDefault(require("./Game/Game"));
 
+require("./index.scss");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "App"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, "Tic Tie Toe"), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("h1", {
+    className: "AppName"
+  }, "Tic Tie Toe"), /*#__PURE__*/_react.default.createElement("div", {
     className: "game"
   }, /*#__PURE__*/_react.default.createElement(_Game.default, null)));
 };
 
 _reactDom.default.render( /*#__PURE__*/_react.default.createElement(App, null), document.querySelector("#root"));
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Game/Game":"../src/Game/Game.jsx"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js","./Game/Game":"../src/Game/Game.jsx","./index.scss":"../src/index.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -30024,7 +30047,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55219" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52133" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

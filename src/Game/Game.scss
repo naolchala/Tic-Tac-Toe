@@ -1,5 +1,5 @@
 .game_table {
-    width: 100%;
+    // width: 100%;
     border-collapse: collapse;
     border-radius: 10px;
     
@@ -24,5 +24,53 @@
                 background-color: #FF5722;
             }
         }
+    }
+}
+
+.turn-shower {
+    margin-top: 20px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+        flex: 1;
+
+        // background-color: #FF5722;
+        background: transparent;
+        color:#FF5722;
+        padding: 10px;
+        border-radius: 100px;
+        text-align: center;
+        transition: all .3s ease-in-out;
+
+        &.active {
+            background-color: #FF5722;
+            color: white;
+        }
+    }
+
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .modal {
+        background-color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 5px;
     }
 }
