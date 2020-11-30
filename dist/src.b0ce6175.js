@@ -29905,7 +29905,25 @@ function checkWin(data, row, col) {
   }
 }
 
+function checkDraw(data) {
+  for (var i = 0; i < data.length; i++) {
+    for (var j = 0; j < data[i].length; j++) {
+      if (data[i][j] === 0) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
 var Game = function Game() {
+  var initialgameData = {
+    player1: 0,
+    player2: 0,
+    draw: 0
+  };
+
   var _useState = (0, _react.useState)(game_data),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
@@ -29921,15 +29939,39 @@ var Game = function Game() {
       gameEnded = _useState6[0],
       setEnd = _useState6[1];
 
+  var _useState7 = (0, _react.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isDraw = _useState8[0],
+      setDraw = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(initialgameData),
+      _useState10 = _slicedToArray(_useState9, 2),
+      gameData = _useState10[0],
+      setGameData = _useState10[1];
+
   var setCellValue = function setCellValue(row, col) {
-    if (data[row][col] == 0 && !gameEnded) {
+    if (data[row][col] == 0 && !gameEnded && !isDraw) {
       var newData = data;
       newData[row][col] = playerTurn;
       setData(newData);
       var wins = checkWin(data, row, col);
+      var draw = checkDraw(data);
 
       if (wins) {
+        var d = gameData;
+
+        if (playerTurn == 1) {
+          d.player1 += 1;
+          setGameData(d);
+        } else {
+          d.player2 += 1;
+          setGameData(d);
+        }
+
+        console.table(gameData);
         setEnd(true);
+      } else if (draw) {
+        setDraw(true);
       } else {
         setPlayerTurn(function (playerTurn) {
           return playerTurn == 1 ? 2 : 1;
@@ -29938,9 +29980,22 @@ var Game = function Game() {
     }
   };
 
+  var resetGame = function resetGame() {
+    var new_game = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+    setData(new_game);
+    setEnd(false);
+    setDraw(false);
+  };
+
   return /*#__PURE__*/_react.default.createElement("div", {
-    class: "game"
-  }, gameEnded ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\uD83C\uDF86\uD83C\uDF87\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\u2728\uD83C\uDF89"), /*#__PURE__*/_react.default.createElement("h2", null, "Player ", playerTurn), /*#__PURE__*/_react.default.createElement("h4", null, "Wins This Round ")) : null, /*#__PURE__*/_react.default.createElement("table", {
+    className: "game"
+  }, gameEnded ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\uD83C\uDF86\uD83C\uDF87\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\uD83C\uDFC6\u2728\uD83C\uDF89"), /*#__PURE__*/_react.default.createElement("h2", null, "Player ", playerTurn), /*#__PURE__*/_react.default.createElement("h4", null, "Wins This Round "), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn",
+    onClick: resetGame
+  }, "Play again")) : null, isDraw ? /*#__PURE__*/_react.default.createElement(Modal, null, /*#__PURE__*/_react.default.createElement("h1", null, "\u274C\u2B55"), /*#__PURE__*/_react.default.createElement("h2", null, "Draw"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn",
+    onClick: resetGame
+  }, "Play again")) : null, /*#__PURE__*/_react.default.createElement("table", {
     className: "game_table"
   }, /*#__PURE__*/_react.default.createElement("tbody", null, data.map(function (row, index) {
     return /*#__PURE__*/_react.default.createElement(Row, {
@@ -29952,10 +30007,14 @@ var Game = function Game() {
   }))), /*#__PURE__*/_react.default.createElement("div", {
     className: "turn-shower"
   }, /*#__PURE__*/_react.default.createElement("span", {
-    className: playerTurn == 1 ? "active" : ""
-  }, "Player 1"), /*#__PURE__*/_react.default.createElement("span", {
-    className: playerTurn == 2 ? "active" : ""
-  }, "Player 2")));
+    className: playerTurn == 1 ? "active turn" : " turn"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "point"
+  }, gameData.player1), "Player 1"), /*#__PURE__*/_react.default.createElement("span", {
+    className: playerTurn == 2 ? "active turn" : " turn"
+  }, "Player 2 ", /*#__PURE__*/_react.default.createElement("span", {
+    className: "point"
+  }, gameData.player2))));
 };
 
 var Row = function Row(props) {
@@ -30086,7 +30145,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52133" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51301" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -4117,18 +4117,31 @@
   align-items: center;
   justify-content: space-between;
 }
-.turn-shower span {
+.turn-shower span.turn {
   flex: 1;
   background: transparent;
+  display: inline;
   color: #FF5722;
   padding: 10px;
   border-radius: 100px;
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
-.turn-shower span.active {
+.turn-shower span.turn .point {
   background-color: #FF5722;
   color: white;
+  padding: 3px 6px;
+  margin: 0 5px;
+  border-radius: 5px;
+}
+.turn-shower span.turn.active {
+  background-color: #FF5722;
+  color: white;
+}
+.turn-shower span.turn.active .point {
+  flex: auto;
+  background-color: white;
+  color: #FF5722;
 }
 
 .modal-container {
@@ -4149,6 +4162,7 @@
   padding: 30px;
   text-align: center;
   border-radius: 5px;
+  box-shadow: 0 2px 5px -1px #444;
   animation: backInDown 0.6s;
 }
 
@@ -4164,7 +4178,7 @@
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
   animation-name: rounds;
-  animation-duration: 2s;
+  animation-duration: 1.5s;
 }
 
 @keyframes rounds {
@@ -4186,7 +4200,18 @@
   stroke-dasharray: 1000;
   stroke-dashoffset: 0;
   stroke-width: 10px;
-  animation: rounds 2s;
+  animation: rounds 1.5s;
+}
+
+.btn {
+  padding: 8px 25px;
+  border: none;
+  background: #FF5722;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px -1px #aaa;
 }
 .App {
   width: 100%;

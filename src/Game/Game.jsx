@@ -6,6 +6,8 @@ import './Game.scss';
 const game_data = [[0,0,0],
                    [0,0,0],
                    [0,0,0]];
+
+
 function checkDown(data, col){
   return data[0][col] === data[1][col] && data[0][col] == data[2][col] && data[0][col] !== 0;
 }
@@ -26,38 +28,90 @@ function checkWin(data, row, col){
       return false
     }
 }
+function checkDraw(data){
+    for(let i = 0; i < data.length; i++){
+        for(let j=0; j < data[i].length; j++){
+            if(data[i][j] === 0){
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
 
 
 
 const Game = () => {
+    const initialgameData = {
+        player1: 0,
+        player2: 0,
+        draw: 0
+    }
+
     const [data, setData] = useState(game_data);
     const [playerTurn, setPlayerTurn] = useState(1);
     const [gameEnded, setEnd] = useState(false);
+    const [isDraw, setDraw] = useState(false);
+    const [gameData, setGameData] = useState(initialgameData);
 
     const setCellValue = (row, col) => {
         
-        if ( data[row][col] == 0 && !gameEnded){
+        if ( data[row][col] == 0 && !gameEnded && !isDraw){
             let newData = data;
             newData[row][col] =  playerTurn;
             setData(newData);
             let wins = checkWin(data, row, col);
+            let draw = checkDraw(data);
             if(wins){
+                let d = gameData;
+                if(playerTurn == 1){
+                    d.player1 += 1; 
+                    setGameData(d);
+
+                }else {
+                    d.player2 += 1;
+                    setGameData(d);
+                }
+                console.table(gameData)
                 setEnd(true);
-            }else {
+            }else if (draw){
+                setDraw(true);
+            }
+            else {
                 setPlayerTurn(playerTurn => playerTurn == 1 ? 2 : 1);
             }
             
         }
     }
 
+    const resetGame = () => {
+        const new_game = [[0,0,0],
+                          [0,0,0],
+                          [0,0,0]];
+        setData(new_game);
+        setEnd(false);
+        setDraw(false);
+    }
+
     return (
-        <div class="game">
+        <div className="game">
            {
                gameEnded ?
                     <Modal>
                         <h1>🎆🎇🏆🏆🏆🏆✨🎉</h1>
                         <h2>Player {playerTurn}</h2>
                         <h4>Wins This Round </h4>
+                        <button className="btn" onClick={resetGame}>Play again</button>
+                    </Modal>
+               : null
+           }
+           {
+               isDraw ?
+                    <Modal>
+                        <h1>❌⭕</h1>
+                        <h2>Draw</h2>
+                        <button className="btn" onClick={resetGame}>Play again</button>
                     </Modal>
                : null
            }
@@ -71,8 +125,8 @@ const Game = () => {
                 </tbody>
             </table>
             <div className="turn-shower">
-                    <span className={playerTurn == 1 ? "active" : ""}>Player 1</span>
-                    <span className={playerTurn == 2 ? "active" : ""}>Player 2</span>
+                <span className={playerTurn == 1 ? "active turn" : " turn"}><span  className="point">{gameData.player1}</span>Player 1</span>
+                    <span className={playerTurn == 2 ? "active turn" : " turn"}>Player 2 <span className="point">{gameData.player2}</span></span>
             </div>
         </div>
     )
