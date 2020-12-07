@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel public/index.html",
+    "backend": "nodemon backend/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,8 +25,10 @@
   },
   "dependencies": {
     "animate.css": "^4.1.1",
+    "express": "^4.17.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "socket.io": "^3.0.3"
+    "socket.io": "^3.0.3",
+    "socket.io-client": "^3.0.3"
   }
 }
